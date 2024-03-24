@@ -2,8 +2,6 @@
 import { useState } from "react";
 import Modal from "../components/shared/Modal";
 import CreateTask from "./CreateTask";
-import { HiDotsVertical } from "react-icons/hi";
-import EditTask from "./EditTask";
 import TaskCard from "../components/shared/TaskCard";
 
 const Header = () => {
@@ -41,11 +39,8 @@ const Header = () => {
                     <option value="p2">P2</option>
                 </select>
             </div>
-            {/* <Modal isOpen={isOpen} setIsOpen={setIsOpen} >
-                <CreateTask />
-            </Modal> */}
             <Modal isOpen={isOpen} setIsOpen={setIsOpen} >
-                <EditTask />
+                <CreateTask />
             </Modal>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5 text-white text-[18px]">
                 <div className="bg-white">
