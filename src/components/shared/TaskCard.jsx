@@ -13,7 +13,6 @@ const TaskCard = ({ currentTask }) => {
     const [tasks, refetch] = useTasks();
     let [isOpen, setIsOpen] = useState(false);
     const [editTask, setEditTask] = useState([]);
-
     function openModal() {
         setIsOpen(true)
     }
@@ -24,7 +23,6 @@ const TaskCard = ({ currentTask }) => {
     }
 
     const handleDelete = (deleteId) => {
-        console.log(deleteId);
         Swal.fire({
             text: "Do You Want to Delete this Task?",
             title:`${deleteId?.title}`,
@@ -33,20 +31,19 @@ const TaskCard = ({ currentTask }) => {
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                  getLink.delete(`/delete-task/${deleteId}`)
+                  getLink.delete(`/delete-task/${deleteId?.deleteId}`)
                   .then(res =>{
                     refetch();
                     if(res.data?.deletedCount > 0){
                         toast.success('deleted successfully!')
                     }
                   })
-               
             }
         });
 
     }
     // console.log(currentTask);
-    console.log(editTask);
+    // console.log(editTask);
     return (
         <>
             <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
