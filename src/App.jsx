@@ -1,12 +1,21 @@
+import Header from "./pages/Header"
 
 function App() {
 
   return (
-    <>
-      <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-    </>
+    <div className="bg-gradient-to-r from-[#f4dbf9] to-[#e0dafc] w-full h-screen">
+      <div className="r">
+        <div>
+          <h1></h1>
+        </div>
+        <div>
+           
+        </div>
+      </div>
+      <h1 className="">
+        <Header />
+      </h1>
+    </div>
   )
 }
 
