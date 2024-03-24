@@ -21,9 +21,9 @@ const Modal = ({ isOpen, setIsOpen, children }) => {
                         <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95" >
                             <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                 {children}
-                                <div className="absolute  top-0 right-0">
+                                <div className="absolute top-2 right-2">
                                     <button type="button" onClick={closeModal} >
-                                        <RxCross2 className='w-10 h-10 bg-gray-200 hover:text-red-500 rounded-full p-2 text-2xl' />
+                                        <RxCross2 className='w-9 h-9 bg-gray-200 hover:text-red-500 rounded-full p-2 text-2xl border border-black' />
                                     </button>
                                 </div>
                             </Dialog.Panel>
