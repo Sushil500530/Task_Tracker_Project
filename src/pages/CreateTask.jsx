@@ -66,11 +66,11 @@ const CreateTask = ({ setIsOpen }) => {
                     <div className="flex items-center justify-start gap-5">
                         <h1 className="text-base font-bold ">Status:  </h1>
                         <select name="status" className="px-2 py-1 rounded bg-[#c5c0c0] text-black p-2" {...register("status", { required: true })} required>
-                            <option value="p1" selected>Pending</option>
-                            <option value="p0">in Progress</option>
-                            <option value="p1">Completed</option>
-                            <option value="p2">Deployed</option>
-                            <option value="p2">Deffered</option>
+                            <option value="pending" selected>Pending</option>
+                            <option value="inProgress">in Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="deployed">Deployed</option>
+                            <option value="deffered">Deffered</option>
                         </select>
                     </div>
                 </div>

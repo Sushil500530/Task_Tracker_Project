@@ -3,13 +3,27 @@ import { useState } from "react";
 import Modal from "../components/shared/Modal";
 import CreateTask from "./CreateTask";
 import TaskCard from "../components/shared/TaskCard";
+import useTasks from "../components/hooks/useTasks";
 
 const Header = () => {
     let [isOpen, setIsOpen] = useState(false);
-
+    const [tasks, refetch] = useTasks();
+    refetch();
     function openModal() {
         setIsOpen(true)
     }
+    const pending = tasks?.filter(task => task.status === 'pending');
+    const inProgress = tasks?.filter(task => task.status === 'inProgress');
+    const completed = tasks?.filter(task => task.status === 'completed');
+    const deployed = tasks?.filter(task => task.status === 'deployed');
+    const deffered = tasks?.filter(task => task.status === 'deffered');
+    console.log(pending);
+    console.log(inProgress);
+    console.log(completed);
+    console.log(deployed);
+    console.log(deffered);
+
+    // console.log(tasks);
     return (
         <div className="space-y-5">
             {/* filter by name, priority, date  */}
@@ -46,31 +60,41 @@ const Header = () => {
                 <div className="bg-white">
                     <h1 className="w-full rounded-t-md py-2 bg-[#8b8c8e] text-center">Pending</h1>
                     <div className="flex flex-col w-full gap-5">
-                        <TaskCard />
+                        {
+                            pending?.length > 0 && pending?.map(pendingTask => <TaskCard currentTask={pendingTask} key={pendingTask._id} />)
+                        }
                     </div>
                 </div>
                 <div className="bg-white">
                     <h1 className="w-full rounded-t-md py-2 bg-[#e49c1d] text-center">In Progress</h1>
                     <div className="flex flex-col w-full gap-5">
-                        <TaskCard />
+                        {
+                            inProgress?.length > 0 && inProgress?.map(inprogressTask => <TaskCard currentTask={inprogressTask} key={inprogressTask._id} />)
+                        }
                     </div>
                 </div>
                 <div className="bg-white">
                     <h1 className="w-full rounded-t-md py-2 bg-[#45a822] text-center">Completed</h1>
                     <div className="flex flex-col w-full gap-5">
-                        <TaskCard />
+                        {
+                            completed?.length > 0 && completed?.map(completeTask => <TaskCard currentTask={completeTask} key={completed._id} />)
+                        }
                     </div>
                 </div>
                 <div className="bg-white">
-                    <h1 className="w-full rounded-t-md py-2 bg-[#353a74] text-center">Completed</h1>
+                    <h1 className="w-full rounded-t-md py-2 bg-[#353a74] text-center">Deployed</h1>
                     <div className="flex flex-col w-full gap-5">
-                        <TaskCard />
+                        {
+                            deployed?.length > 0 && deployed?.map(deployTask => <TaskCard currentTask={deployTask} key={deployTask._id} />)
+                        }
                     </div>
                 </div>
                 <div className="bg-white ">
                     <h1 className="w-full rounded-t-md py-2 bg-[#f78772] text-center">Deffered</h1>
                     <div className="flex flex-col w-full gap-5">
-                        <TaskCard />
+                        {
+                            deffered?.length > 0 && deffered?.map(defferTask => <TaskCard currentTask={defferTask} key={defferTask._id} />)
+                        }
                     </div>
                 </div>
             </div>
