@@ -9,7 +9,7 @@ const CreateTask = () => {
                     <input type="text" name="title" className="border w-full bg-[#c5c0c0]" />
                 </div>
                 <div className="flex items-center justify-between">
-                    <label className="w-1/3">Description:</label>
+                    <label className="w-1/3 text-base font-bold">Description:</label>
                     <textarea name="description" id="" className="border w-full bg-[#c5c0c0]" cols="10" rows="3"></textarea>
                 </div>
                 <div className="flex items-center justify-between">
@@ -20,14 +20,30 @@ const CreateTask = () => {
                     <label className="w-1/3 text-base font-bold">Assignees:</label>
                     <input type="text" name="title" className="border w-full bg-[#c5c0c0]" />
                 </div>
-                <div className="flex items-center justify-center md:justify-start lg:justify-start gap-5">
-                    <h1 className="text-base font-bold ">Sort By:  </h1>
-                    <select name="sortBy" id="sortBy" className="px-2 py-1 rounded bg-[#c5c0c0]" >
-                        <option className="divide-y" value="p1">P1</option>
-                        <option value="p0">P0</option>
-                        <option value="p1">P1</option>
-                        <option value="p2">P2</option>
-                    </select>
+                <div className="flex items-center justify-between flex-col md:flex-row lg:flex-row gap-3">
+                    <div className="flex items-center justify-start gap-5">
+                        <h1 className="text-base font-bold ">Sort By:  </h1>
+                        <select name="sortBy" id="sortBy" className="px-2 py-1 rounded bg-[#c5c0c0]" >
+                            <option className="divide-y" value="p1">P1</option>
+                            <option value="p0">P0</option>
+                            <option value="p1">P1</option>
+                            <option value="p2">P2</option>
+                        </select>
+                    </div>
+                    <div className="flex items-center justify-start gap-5">
+                        <h1 className="text-base font-bold ">Status:  </h1>
+                        <select name="sortBy" id="sortBy" className="px-2 py-1 rounded bg-[#c5c0c0]" >
+                            <option className="divide-y" value="p1">Completed</option>
+                            <option value="p1">Pending</option>
+                            <option value="p0">in Progress</option>
+                            <option value="p2">Deployed</option>
+                            <option value="p2">Deffered</option>
+                        </select>
+                    </div>
+                </div>
+                <div className="flex items-center justify-end gap-5">
+                    <button className="bg-[#26689a] text-white px-5 py-1 rounded">Reset</button>
+                    <button className="bg-[#26689a] text-white px-5 py-1 rounded">Submit</button>
                 </div>
             </div>
         </div>
