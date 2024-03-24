@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "../components/shared/Modal";
 import CreateTask from "./CreateTask";
+import EditTask from "./EditTask";
 
 const Header = () => {
     let [isOpen, setIsOpen] = useState(true);
@@ -35,8 +36,11 @@ const Header = () => {
                     <option value="p2">P2</option>
                 </select>
             </div>
-            <Modal isOpen={isOpen} setIsOpen={setIsOpen} >
+            {/* <Modal isOpen={isOpen} setIsOpen={setIsOpen} >
             <CreateTask />
+            </Modal> */}
+            <Modal isOpen={isOpen} setIsOpen={setIsOpen} >
+            <EditTask />
             </Modal>
         </div>
     );
