@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Header from "./pages/Header"
 import { FaUser } from "react-icons/fa";
 function App() {
@@ -10,7 +11,7 @@ function App() {
           <h1 className="text-2xl font-bold">Task Board</h1>
         </div>
         <div>
-           <FaUser  className="w-16 h-16 rounded-full border bg-white p-3 cursor-pointer" />
+          <Link to='/register'> <FaUser  className="w-16 h-16 rounded-full border bg-white p-3 cursor-pointer" /></Link>
         </div>
       </div>
       <div className="w-full h-full p-5 border border-white rounded-lg">
