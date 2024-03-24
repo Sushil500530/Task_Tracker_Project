@@ -3,7 +3,7 @@ import { FaUser } from "react-icons/fa";
 function App() {
 
   return (
-    <div className="container mx-auto space-y-8">
+    <div className="container mx-auto space-y-8 pb-10">
       {/* navbar section or header layout */}
       <div className="flex items-center justify-between p-5">
         <div>

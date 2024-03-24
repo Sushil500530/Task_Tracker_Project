@@ -41,6 +41,10 @@ const EditTask = () => {
                         </select>
                     </div>
                 </div>
+                <div className="flex items-center justify-end gap-5 mt-5">
+                    <button className="bg-[#26689a] text-white px-5 py-1 rounded">Reset</button>
+                    <button className="bg-[#26689a] text-white px-5 py-1 rounded">Update</button>
+                </div>
             </div>
         </div>
     );
