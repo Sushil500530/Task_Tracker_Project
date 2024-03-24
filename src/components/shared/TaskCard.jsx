@@ -25,29 +25,27 @@ const TaskCard = ({ currentTask }) => {
     const handleDelete = (deleteId) => {
         Swal.fire({
             text: "Do You Want to Delete this Task?",
-            title:`${deleteId?.title}`,
+            title: `${deleteId?.title}`,
             showDenyButton: true,
             confirmButtonText: "Yes",
         }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
-                  getLink.delete(`/delete-task/${deleteId?.deleteId}`)
-                  .then(res =>{
-                    refetch();
-                    if(res.data?.deletedCount > 0){
-                        toast.success('deleted successfully!')
-                    }
-                  })
+                getLink.delete(`/delete-task/${deleteId?.deleteId}`)
+                    .then(res => {
+                        refetch();
+                        if (res.data?.deletedCount > 0) {
+                            toast.success('deleted successfully!')
+                        }
+                    })
             }
         });
 
     }
-    // console.log(currentTask);
-    // console.log(editTask);
     return (
         <>
             <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-                <EditTask editTask={editTask} setIsOpen={setIsOpen} />
+                <EditTask editTask={editTask} setIsOpen={setIsOpen} refetch={refetch} />
             </Modal>
             <div className="text-black bg-gray-200 shadow-md p-2 m-2">
                 <div className="flex items-center justify-between">
@@ -55,15 +53,15 @@ const TaskCard = ({ currentTask }) => {
                     <h1 className="bg-[#26689a] text-white p-1 rounded">{currentTask?.priority}</h1>
                 </div>
                 <hr className="text-black bg-gray-400 w-full h-[3px] my-3" />
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magnam debitis autem vero quidem in unde. </p>
+                <p>{currentTask?.description?.length > 90 ? currentTask?.description?.slice(0, 90) : currentTask?.description}</p>
                 <div className="flex items-center justify-between">
-                    <h1 className="text-xl font-bold">@Praving</h1>
+                    <h1 className="text-xl font-bold">@{currentTask?.user}</h1>
                     <div className="group relative">
                         <button className="bg-[#26689a] text-white p-1 rounded cursor-pointer"><HiDotsVertical /></button>
                         <div className=" hidden group-hover:block  bg-white absolute top-0 right-5 rounded w-28">
                             <div className="flex flex-col items-center justify-center gap-1">
                                 <button onClick={() => handleEdit(currentTask?._id)} className=" p-1 rounded cursor-pointer hover:bg-gray-200 w-full">Edit</button>
-                                <button onClick={() => handleDelete({deleteId:currentTask?._id, title:currentTask?.title})} className=" p-1 rounded cursor-pointer hover:bg-gray-200 w-full">Delete</button>
+                                <button onClick={() => handleDelete({ deleteId: currentTask?._id, title: currentTask?.title })} className=" p-1 rounded cursor-pointer hover:bg-gray-200 w-full">Delete</button>
                             </div>
                         </div>
                     </div>

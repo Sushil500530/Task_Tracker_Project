@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import axios from "axios";
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast";
+import useAxios from "../components/hooks/useAxios";
 const CreateTask = ({ setIsOpen }) => {
+    const getLink = useAxios();
     const { register, handleSubmit, reset } = useForm();
 
     const handleCreateTask = async (data) => {
@@ -15,9 +16,11 @@ const CreateTask = ({ setIsOpen }) => {
             title: data.title,
             user: 'sushil',
             email: 'sushil@gmail.com',
+            startDate: new Date(),
+            endDate: new Date(),
         }
         try {
-            await axios.post('http://localhost:5000/task', taskData)
+            await getLink.post('http://localhost:5000/task', taskData)
                 .then(res => {
                     if (res.data?.insertedId) {
                         setIsOpen(false)
@@ -43,7 +46,7 @@ const CreateTask = ({ setIsOpen }) => {
                 </div>
                 <div className="flex items-center justify-between">
                     <label className="w-1/3 text-base font-bold">Description:</label>
-                    <textarea name="description" id="" className="border w-full bg-[#c5c0c0]" cols="10" rows="3"  {...register("description", { required: true })} required></textarea>
+                    <textarea name="description" id="" className="border w-full bg-[#c5c0c0] p-2" cols="10" rows="3"  {...register("description", { required: true })} required></textarea>
                 </div>
                 <div className="flex items-center justify-between">
                     <label className="w-1/3 text-base font-bold">Team:</label>
