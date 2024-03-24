@@ -3,19 +3,17 @@ import { FcGoogle } from 'react-icons/fc';
 import { Link } from "react-router-dom";
 
 
-
-const Resister = () => {
-    const { register, handleSubmit,
-        formState: { errors },
+const Register = () => {
+    const { register, handleSubmit, formState: { errors },
     } = useForm();
     const handleResister = async (data) => {
-      console.log(data);
+        console.log(data);
     }
     return (
         <div className="container mx-auto">
             <div className="card-body p-0 lg:p-8 border w-full md:w-1/2 lg:w-[40%] mx-auto">
                 <form onSubmit={handleSubmit(handleResister)} className="p-5 space-y-3">
-                    <h1 className="text-3xl font-bold mb-12 text-center">Please Login</h1>
+                    <h1 className="text-3xl font-bold mb-12 text-center">Please Register Now</h1>
                     <div className="space-y-3">
                         <label className="text-xl">Username </label>
                         <input type="text"  {...register("name", { required: true })} name="name" className="p-3 bg-[#F3F3F3] w-full border-blue-500 dark:text-black" id="" placeholder="Enter your name" />
@@ -38,7 +36,7 @@ const Resister = () => {
                             <p className="text-red-600">password is required</p>
                         )}
                     </div>
-                    <p className="text-base font-medium my-8">not haven't account yet! Please register <Link to='/login' className="text-blue-500 underline">SIGN Up</Link></p>
+                    <p className="text-base font-medium my-8">already have an account? <Link to='/login' className="text-blue-500 underline">SIGN IN</Link></p>
                     <button className="p-2 rounded bg-[#26689a] text-white text-[18px] font-medium hover:text-blue-500 w-full">Sign in</button>
                 </form>
                 <div className=" w-[80%] mx-auto">
@@ -52,4 +50,4 @@ const Resister = () => {
     );
 };
 
-export default Resister;
+export default Register;
