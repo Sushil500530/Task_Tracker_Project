@@ -76,7 +76,7 @@ const CreateTask = ({ setIsOpen }) => {
                 </div>
 
                 <div className="flex items-center justify-end gap-5 mt-5">
-                    <button type="btn" onClick={handleReset} className="bg-[#26689a] text-white px-5 py-1 rounded absolute right-[7.75rem] bottm-0">Reset</button>
+                    <button type="reset" onClick={handleReset} className="bg-[#26689a] text-white px-5 py-1 rounded absolute right-[7.75rem] bottm-0">Reset</button>
                     <button type="submit" className="bg-[#26689a] text-white px-5 py-1 rounded">Submit</button>
                 </div>
             </form>

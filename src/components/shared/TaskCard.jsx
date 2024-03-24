@@ -4,11 +4,15 @@ import Modal from "./Modal";
 import EditTask from "../../pages/EditTask";
 import { useState } from "react";
 import useTasks from "../hooks/useTasks";
+import Swal from "sweetalert2";
+import useAxios from "../hooks/useAxios";
+import toast from "react-hot-toast";
 
-const TaskCard = ({currentTask}) => {
-    const [tasks,refetch] = useTasks();
+const TaskCard = ({ currentTask }) => {
+    const getLink = useAxios();
+    const [tasks, refetch] = useTasks();
     let [isOpen, setIsOpen] = useState(false);
-    const [editTask,setEditTask] = useState([]);
+    const [editTask, setEditTask] = useState([]);
 
     function openModal() {
         setIsOpen(true)
@@ -18,12 +22,35 @@ const TaskCard = ({currentTask}) => {
         setEditTask(currentData)
         openModal();
     }
+
+    const handleDelete = (deleteId) => {
+        console.log(deleteId);
+        Swal.fire({
+            text: "Do You Want to Delete this Task?",
+            title:`${deleteId?.title}`,
+            showDenyButton: true,
+            confirmButtonText: "Yes",
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                  getLink.delete(`/delete-task/${deleteId}`)
+                  .then(res =>{
+                    refetch();
+                    if(res.data?.deletedCount > 0){
+                        toast.success('deleted successfully!')
+                    }
+                  })
+               
+            }
+        });
+
+    }
     // console.log(currentTask);
     console.log(editTask);
     return (
         <>
             <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-                <EditTask editTask={editTask} />
+                <EditTask editTask={editTask} setIsOpen={setIsOpen} />
             </Modal>
             <div className="text-black bg-gray-200 shadow-md p-2 m-2">
                 <div className="flex items-center justify-between">
@@ -38,8 +65,8 @@ const TaskCard = ({currentTask}) => {
                         <button className="bg-[#26689a] text-white p-1 rounded cursor-pointer"><HiDotsVertical /></button>
                         <div className=" hidden group-hover:block  bg-white absolute top-0 right-5 rounded w-28">
                             <div className="flex flex-col items-center justify-center gap-1">
-                                <button onClick={()=> handleEdit(currentTask?._id)} className=" p-1 rounded cursor-pointer hover:bg-gray-200 w-full">Edit</button>
-                                <button className=" p-1 rounded cursor-pointer hover:bg-gray-200 w-full">Delete</button>
+                                <button onClick={() => handleEdit(currentTask?._id)} className=" p-1 rounded cursor-pointer hover:bg-gray-200 w-full">Edit</button>
+                                <button onClick={() => handleDelete({deleteId:currentTask?._id, title:currentTask?.title})} className=" p-1 rounded cursor-pointer hover:bg-gray-200 w-full">Delete</button>
                             </div>
                         </div>
                     </div>
