@@ -12,14 +12,14 @@ const CreateTask = ({ setIsOpen }) => {
     const { register, handleSubmit, reset } = useForm();
     const { user } = useAuth();
     const navigate = useNavigate();
-
+console.log(user);
 
     const handleCreateTask = async (data) => {
         if (!user) {
             setIsOpen(false)
             return Swal.fire({
                 title: "Not Find Your Account?",
-                text: "Please Login First,Then Create Your Task!",
+                text: "Please Login First,Then Create a Task!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -38,8 +38,8 @@ const CreateTask = ({ setIsOpen }) => {
             status: data.status,
             team: data.team,
             title: data.title,
-            user: 'sushil',
-            email: 'sushil@gmail.com',
+            user: user?.displayName,
+            email: user?.email,
             startDate: new Date(),
             endDate: new Date(),
         }

@@ -2,11 +2,34 @@
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAxios from "../components/hooks/useAxios";
+import useAuth from "../components/hooks/useAuth";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
-const EditTask = ({ editTask, setIsOpen,refetch }) => {
+const EditTask = ({ editTask, setIsOpen, refetch }) => {
     const getLink = useAxios();
+    const { user } = useAuth();
+    const navigate = useNavigate();
     const { register, handleSubmit, reset } = useForm();
+
+
     const handleCreateTask = async (data) => {
+        if (!user) {
+            setIsOpen(false)
+            return Swal.fire({
+                title: "Not Find Your Account?",
+                text: "Please Login First,Then Edit Your Task!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Login"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    return navigate('/login')
+                }
+            });
+        }
         const taskData = {
             assignees: data.assignees,
             description: data.description,
@@ -14,8 +37,8 @@ const EditTask = ({ editTask, setIsOpen,refetch }) => {
             status: data.status,
             team: data.team,
             title: data.title,
-            user: 'sushil',
-            email: 'sushil@gmail.com',
+            user: user?.displayName,
+            email: user?.email,
             startDate: editTask?.startDate,
             endDate: new Date(),
         }
@@ -79,7 +102,7 @@ const EditTask = ({ editTask, setIsOpen,refetch }) => {
                 </div>
 
                 <div className="flex items-center justify-end gap-5 mt-5">
-                    <button type="reset" onClick={()=>reset()} className="bg-[#26689a] text-white px-5 py-1 rounded absolute right-[7.75rem] bottm-0">Reset</button>
+                    <button type="reset" onClick={() => reset()} className="bg-[#26689a] text-white px-5 py-1 rounded absolute right-[7.75rem] bottm-0">Reset</button>
                     <button type="submit" className="bg-[#26689a] text-white px-5 py-1 rounded">Submit</button>
                 </div>
             </form>

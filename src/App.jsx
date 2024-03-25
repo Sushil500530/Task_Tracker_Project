@@ -18,7 +18,7 @@ function App() {
         </div>
         <div>
           {
-            user?.email ? <><div className="w-16 h-16 group relative" > <img src={user?.photoURL} alt="profile-photo" className="w-16 h-16 rounded-full border cursor-pointer" />
+            user?.email ? <><div className="w-16 h-16 group relative" > {user?.photoURL ? <img src={user?.photoURL} alt="profile-photo" className="w-16 h-16 rounded-full border cursor-pointer" /> : <FaUser className="w-16 h-16 rounded-full border bg-white p-3 cursor-pointer" />}
               <div className=" hidden group-hover:block  bg-white absolute top-14 -right-2 rounded w-44 ">
                 <div className="flex flex-col items-center justify-center gap-1">
                   <button onClick={handleLogout} className=" p-1 rounded cursor-pointer bg-[#26689a] text-white w-full">Logout</button>

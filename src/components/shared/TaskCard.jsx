@@ -7,12 +7,18 @@ import useTasks from "../hooks/useTasks";
 import Swal from "sweetalert2";
 import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const TaskCard = ({ currentTask }) => {
     const getLink = useAxios();
+    const {user} = useAuth();
+    const  navigate = useNavigate();
     const [tasks, refetch] = useTasks();
     let [isOpen, setIsOpen] = useState(false);
     const [editTask, setEditTask] = useState([]);
+
+
     function openModal() {
         setIsOpen(true)
     }
@@ -23,6 +29,22 @@ const TaskCard = ({ currentTask }) => {
     }
 
     const handleDelete = (deleteId) => {
+        if (!user) {
+            setIsOpen(false)
+            return Swal.fire({
+                title: "Not Find Your Account?",
+                text: "Please Login First,Then Delete Your Task!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Login"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    return navigate('/login')
+                }
+            });
+        }
         Swal.fire({
             text: "Do You Want to Delete this Task?",
             title: `${deleteId?.title}`,
