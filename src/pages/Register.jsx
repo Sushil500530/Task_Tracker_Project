@@ -6,23 +6,28 @@ import toast from "react-hot-toast";
 
 
 const Register = () => {
-    const { register, handleSubmit, formState: { errors },} = useForm();
+    const { register, handleSubmit, formState: { errors }, } = useForm();
     const { createUser, googleSignIn } = useAuth();
-   const navigate = useNavigate();
-   
+    const navigate = useNavigate();
+
     const handleResister = async (data) => {
-        console.log(data);
+        createUser(data?.email, data?.password)
+            .then((result) => {
+                if (result?.user) {
+                    toast.success('Login Successful')
+                    navigate("/")
+                }
+            })
+            .catch(err => toast.error(err.message))
     }
     const handleGoogleSignIn = async () => {
         try {
             await googleSignIn()
-            .then(result => {
-                console.log(result);
-            })
-            navigate(location?.state ? location.state : "/")
-            toast.success('Login Successful')
+                .then(() => {
+                    navigate("/")
+                    toast.success('Login Successful')
+                })
         } catch (err) {
-            console.log(err)
             toast.error(err?.message)
         }
     }

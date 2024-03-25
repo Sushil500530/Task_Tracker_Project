@@ -1,16 +1,43 @@
 import { useForm } from "react-hook-form";
 import { FcGoogle } from 'react-icons/fc';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../components/hooks/useAuth";
+import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 
 
 const Login = () => {
-    const { register, handleSubmit,
-        formState: { errors },
-    } = useForm();
+    const { register, handleSubmit, formState: { errors }, } = useForm();
+    const { loginUser,googleSignIn } = useAuth();
+    const navigate = useNavigate();
+
     const handleResister = async (data) => {
-      console.log(data);
+        loginUser(data?.email, data?.password)
+            .then(result => {
+                if (result?.user) {
+                    navigate("/");
+                    return toast.success('resister successfully....!')
+                }
+            })
+            .catch(() => {
+                toast.error('Something is went Wrong....!')
+                return Swal.fire("Please Use Valid Information!");
+            })
     }
+    const handleGoogleSignIn = async () => {
+        try {
+            await googleSignIn()
+                .then(() => {
+                    navigate("/")
+                    toast.success('Login Successful')
+                })
+        } catch (err) {
+            toast.error(err?.message)
+        }
+    };
+
+
     return (
         <div className="container mx-auto">
             <div className="card-body p-0 lg:p-8 border w-full md:w-1/2 lg:w-[40%] mx-auto">
@@ -43,7 +70,7 @@ const Login = () => {
                 </form>
                 <div className=" w-[80%] mx-auto">
                     <div className="divider divide-x-2 divide-black text-2xl text-center">Or</div>
-                    <div className="space-y-3 mt-6 px-3">
+                    <div onClick={handleGoogleSignIn} className="space-y-3 mt-6 px-3">
                         <h1 className="flex items-center justify-center py-2 border rounded-full text-3xl ease-in gap-5 bg-white cursor-pointer transition hover:text-blue-600"><FcGoogle></FcGoogle> <span className="text-base font-medium">Sign in With Google</span></h1>
                     </div>
                 </div>
