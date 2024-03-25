@@ -2,12 +2,35 @@
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast";
 import useAxios from "../components/hooks/useAxios";
+import useAuth from "../components/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const CreateTask = ({ setIsOpen }) => {
     const getLink = useAxios();
     const { register, handleSubmit, reset } = useForm();
+    const { user } = useAuth();
+    const navigate = useNavigate();
+
+
     const handleCreateTask = async (data) => {
+        if (!user) {
+            setIsOpen(false)
+            return Swal.fire({
+                title: "Not Find Your Account?",
+                text: "Please Login First,Then Create Your Task!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Login"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    return navigate('/login')
+                }
+            });
+        }
         const taskData = {
             assignees: data.assignees,
             description: data.description,
