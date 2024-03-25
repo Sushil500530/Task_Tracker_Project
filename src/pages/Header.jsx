@@ -12,16 +12,13 @@ const Header = () => {
     function openModal() {
         setIsOpen(true)
     }
+
     const pending = tasks?.filter(task => task.status === 'pending');
     const inProgress = tasks?.filter(task => task.status === 'inProgress');
     const completed = tasks?.filter(task => task.status === 'completed');
     const deployed = tasks?.filter(task => task.status === 'deployed');
     const deffered = tasks?.filter(task => task.status === 'deffered');
-    // console.log(pending);
-    // console.log(inProgress);
-    // console.log(completed);
-    // console.log(deployed);
-    // console.log(deffered);
+
 
     // console.log(tasks);
     return (
