@@ -9,13 +9,16 @@ import Swal from "sweetalert2";
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const { loginUser,googleSignIn } = useAuth();
+    const { loginUser,googleSignIn ,upadatedProfile} = useAuth();
     const navigate = useNavigate();
 
     const handleResister = async (data) => {
+        console.log(data.name);
         loginUser(data?.email, data?.password)
             .then(result => {
                 if (result?.user) {
+                    upadatedProfile(data?.name)
+                    .then(()=>{})
                     navigate("/");
                     return toast.success('resister successfully....!')
                 }

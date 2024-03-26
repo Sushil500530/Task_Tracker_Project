@@ -30,7 +30,7 @@ function App() {
           }
         </div>
       </div>
-      <div className="w-full h-full p-5 border border-white rounded-lg">
+      <div className="w-full h-full p-5 border border-white rounded-lg ">
         <Header />
       </div>
     </div>

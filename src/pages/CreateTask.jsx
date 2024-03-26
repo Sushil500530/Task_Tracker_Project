@@ -12,7 +12,6 @@ const CreateTask = ({ setIsOpen }) => {
     const { register, handleSubmit, reset } = useForm();
     const { user } = useAuth();
     const navigate = useNavigate();
-console.log(user);
 
     const handleCreateTask = async (data) => {
         if (!user) {

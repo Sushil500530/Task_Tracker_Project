@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { createContext } from "react";
 import { useState } from "react";
 import auth from "./firebase.config";
@@ -10,23 +10,27 @@ export const AuthContext = createContext(null);
 const googleProvider = new GoogleAuthProvider()
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading,setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
 
-    const createUser = (email,password) => {
+    const createUser = (email, password) => {
         setLoading(true);
-        return createUserWithEmailAndPassword(auth,email,password);
+        return createUserWithEmailAndPassword(auth, email, password);
     }
 
-    
-    const loginUser = (email,password) => {
-        setLoading(true);
-        return signInWithEmailAndPassword(auth,email,password);
+    const upadatedProfile = (name) => {
+        return updateProfile(auth.currentUser, {
+            displayName: name
+        })
     }
-     
+    const loginUser = (email, password) => {
+        setLoading(true);
+        return signInWithEmailAndPassword(auth, email, password);
+    }
+
     const googleSignIn = () => {
         setLoading(true);
-        return signInWithPopup(auth,googleProvider);
+        return signInWithPopup(auth, googleProvider);
     }
     const logoutUser = () => {
         setLoading(true);
@@ -34,13 +38,13 @@ const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        const unSubscriber = onAuthStateChanged(auth,currentUser => {
+        const unSubscriber = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser)
         })
         return () => {
             unSubscriber()
         }
-    },[])
+    }, [])
 
     const authInfo = {
         user,
@@ -49,7 +53,7 @@ const AuthProvider = ({ children }) => {
         loginUser,
         logoutUser,
         googleSignIn,
-
+        upadatedProfile
 
     }
     return (

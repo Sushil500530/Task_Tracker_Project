@@ -7,13 +7,16 @@ import toast from "react-hot-toast";
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const { createUser, googleSignIn } = useAuth();
+    const { createUser, googleSignIn,upadatedProfile } = useAuth();
     const navigate = useNavigate();
 
     const handleResister = async (data) => {
+        console.log(data.name);
         createUser(data?.email, data?.password)
             .then((result) => {
                 if (result?.user) {
+                    upadatedProfile(data?.name)
+                    .then(()=>{})
                     toast.success('Login Successful')
                     navigate("/")
                 }

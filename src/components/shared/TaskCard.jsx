@@ -12,8 +12,8 @@ import { useNavigate } from "react-router-dom";
 
 const TaskCard = ({ currentTask }) => {
     const getLink = useAxios();
-    const {user} = useAuth();
-    const  navigate = useNavigate();
+    const { user } = useAuth();
+    const navigate = useNavigate();
     const [tasks, refetch] = useTasks();
     let [isOpen, setIsOpen] = useState(false);
     const [editTask, setEditTask] = useState([]);
@@ -27,7 +27,7 @@ const TaskCard = ({ currentTask }) => {
         setEditTask(currentData)
         openModal();
     }
-
+    console.log(user);
     const handleDelete = (deleteId) => {
         if (!user) {
             setIsOpen(false)
@@ -70,7 +70,7 @@ const TaskCard = ({ currentTask }) => {
                 <EditTask editTask={editTask} setIsOpen={setIsOpen} refetch={refetch} />
             </Modal>
             <div className="text-black bg-gray-200 shadow-md p-2 m-2">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between ">
                     <h1 className="text-xl font-bold capitalize">{currentTask?.title}</h1>
                     <h1 className="bg-[#26689a] text-white p-1 rounded">{currentTask?.priority}</h1>
                 </div>
